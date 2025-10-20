@@ -88,6 +88,9 @@ class HomieNode {
   uint16_t getLower() const { return _lower; }
   uint16_t getUpper() const { return _upper; }
 
+  void setId(const char* id) { _id = id; }
+  void setType(const char* type) { _type = type; }
+
   HomieInternals::PropertyInterface& advertise(const char* id);
   HomieInternals::SendingPromise& setProperty(const String& property) const;
   HomieInternals::Property* getProperty(const String& property) const;
