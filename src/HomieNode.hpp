@@ -90,6 +90,7 @@ class HomieNode {
 
   void setId(const char* id) { _id = id; }
   void setType(const char* type) { _type = type; }
+  void setName(const char* name) { _name = name; }
 
   HomieInternals::PropertyInterface& advertise(const char* id);
   HomieInternals::SendingPromise& setProperty(const String& property) const;
