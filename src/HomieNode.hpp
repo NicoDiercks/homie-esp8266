@@ -18,6 +18,7 @@ class BootNormal;
 class BootConfig;
 class SendingPromise;
 
+
 class PropertyInterface {
   friend ::HomieNode;
 
@@ -25,8 +26,11 @@ class PropertyInterface {
   PropertyInterface();
 
   PropertyInterface& settable(const PropertyInputHandler& inputHandler = [](const HomieRange& range, const String& value) { return false; });
-  PropertyInterface& setName(const char* name);
-  PropertyInterface& setUnit(const char* unit);
+
+  // setName/setUnit mit optionalem copy-Parameter
+  PropertyInterface& setName(const char* name, bool copy = true);
+  PropertyInterface& setUnit(const char* unit, bool copy = true);
+
   PropertyInterface& setDatatype(const char* datatype);
   PropertyInterface& setFormat(const char* format);
   PropertyInterface& setRetained(const bool retained = true);
@@ -37,20 +41,63 @@ class PropertyInterface {
   Property* _property;
 };
 
+
 class Property {
   friend HomieNode;
   friend BootNormal;
+  friend class PropertyInterface;
 
  public:
   explicit Property(const char* id) {
-    _id = strdup(id); _name = ""; _unit = ""; _datatype = ""; _format = ""; _retained = true; _settable = false; }
+    _id = strdup(id);
+
+    _name = nullptr;      // kein Speicherverbrauch am Anfang
+    _unit = nullptr;      // kein Speicherverbrauch am Anfang
+    _name_owned = false;
+    _unit_owned = false;
+
+    _datatype = "";       // unverändert
+    _format   = "";       // unverändert
+
+    _retained = true;
+    _settable = false;
+  }
+
+  ~Property() {
+    if(_id) free((void*)_id);
+    if(_name_owned && _name) free((void*)_name);
+    if(_unit_owned && _unit) free((void*)_unit);
+  }
+
   void settable(const PropertyInputHandler& inputHandler) { _settable = true;  _inputHandler = inputHandler; }
-  void setName(const char* name) { _name = name; }
-  void setUnit(const char* unit) { _unit = unit; }
+
+  // optional copy für Name
+  void setName(const char* name, bool copy = false) { 
+    if(_name_owned && _name) free((void*)_name);
+    if(copy) {
+      _name = strdup(name);
+      _name_owned = true;
+    } else {
+      _name = name;
+      _name_owned = false;
+    }
+  }
+
+  // optional copy für Unit
+  void setUnit(const char* unit, bool copy = false) { 
+    if(_unit_owned && _unit) free((void*)_unit);
+    if(copy) {
+      _unit = strdup(unit);
+      _unit_owned = true;
+    } else {
+      _unit = unit;
+      _unit_owned = false;
+    }
+  }
+
   void setDatatype(const char* datatype) { _datatype = datatype; }
   void setFormat(const char* format) { _format = format; }
   void setRetained(const bool retained = true) { _retained = retained; }
-
 
  private:
   const char* getId() const { return _id; }
@@ -69,7 +116,14 @@ class Property {
   bool _retained;
   bool _settable;
   PropertyInputHandler _inputHandler;
+
+  // Flags für interne Speicherverwaltung
+  bool _name_owned;
+  bool _unit_owned;
 };
+
+
+
 }  // namespace HomieInternals
 
 class HomieNode {

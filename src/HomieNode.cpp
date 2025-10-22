@@ -14,15 +14,16 @@ PropertyInterface& PropertyInterface::settable(const PropertyInputHandler& input
   return *this;
 }
 
-PropertyInterface& PropertyInterface::setName(const char* name) {
-  _property->setName(name);
+PropertyInterface& PropertyInterface::setName(const char* name, bool copy) {
+  if(_property) _property->setName(name, copy);
   return *this;
 }
 
-PropertyInterface& PropertyInterface::setUnit(const char* unit) {
-  _property->setUnit(unit);
+PropertyInterface& PropertyInterface::setUnit(const char* unit, bool copy) {
+  if(_property) _property->setUnit(unit, copy);
   return *this;
 }
+
 
 PropertyInterface& PropertyInterface::setDatatype(const char* datatype) {
   _property->setDatatype(datatype);
