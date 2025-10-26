@@ -1,19 +1,24 @@
 {
   "name": "Homie",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "keywords": "iot, home, automation, mqtt, esp8266, async, sensor",
-  "description": "ESP8266 framework for Homie, a lightweight MQTT convention for the IoT",
+  "description": "Fork from ESP8266 framework for Homie, a lightweight MQTT convention for the IoT",
   "homepage": "https://homieiot.github.io/homie-esp8266/",
   "license": "MIT",
   "authors": [
     {
       "name": "Marvin Roger",
       "url": "https://www.marvinroger.fr",
-      "maintainer": true
+      "maintainer": false
     },
     {
       "name": "Ian Hubbertz",
       "url": "https://github.com/euphi",
+      "maintainer": false
+    },
+    {
+      "name": "Nico Diercks",
+      "url": "https://github.com/NicoDiercks",
       "maintainer": true
     }
   ],
