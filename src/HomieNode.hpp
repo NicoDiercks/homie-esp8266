@@ -59,13 +59,7 @@ class Property {
     _datatype = "";       // unverändert
     _format   = "";       // unverändert
 
-    // Default: Werte nicht retained, $-Topics immer retained
-    if (_id[0] == '$') {
-        _retained = true;
-    } else {
-        _retained = false;
-    }
-
+    _retained = true;
     _settable = false;
   }
 
