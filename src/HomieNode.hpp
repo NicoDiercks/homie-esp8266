@@ -159,10 +159,9 @@ class HomieNode {
   virtual void loop() {}
   virtual void onReadyToOperate() {}
   virtual bool handleInput(const HomieRange& range, const String& property, const String& value);
-
- private:
+ 
   const std::vector<HomieInternals::Property*>& getProperties() const;
-
+ 
   static HomieNode* find(const char* id) {
     for (HomieNode* iNode : HomieNode::nodes) {
       if (strcmp(id, iNode->getId()) == 0) return iNode;
@@ -170,6 +169,8 @@ class HomieNode {
 
     return 0;
   }
+
+private:
 
 
   const char* _id;

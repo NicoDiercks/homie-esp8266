@@ -1,6 +1,6 @@
 {
   "name": "Homie",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "keywords": "iot, home, automation, mqtt, esp8266, async, sensor",
   "description": "Fork from ESP8266 framework for Homie, a lightweight MQTT convention for the IoT",
   "homepage": "https://homieiot.github.io/homie-esp8266/",
@@ -25,7 +25,7 @@
   "repository":
   {
     "type": "git",
-    "url": "https://github.com/homieiot/homie-esp8266.git"
+    "url": "https://github.com/NicoDiercks/homie-esp8266.git"
   },
   "frameworks": "arduino",
   "platforms": [
