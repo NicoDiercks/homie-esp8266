@@ -98,8 +98,7 @@ class Property {
   void setDatatype(const char* datatype) { _datatype = datatype; }
   void setFormat(const char* format) { _format = format; }
   void setRetained(const bool retained = true) { _retained = retained; }
-
- private:
+ 
   const char* getId() const { return _id; }
   const char* getName() const { return _name; }
   const char* getUnit() const { return _unit; }
@@ -108,6 +107,8 @@ class Property {
   bool isRetained() const { return _retained; }
   bool isSettable() const { return _settable; }
   PropertyInputHandler getInputHandler() const { return _inputHandler; }
+  
+private:
   const char* _id;
   const char* _name;
   const char* _unit;
