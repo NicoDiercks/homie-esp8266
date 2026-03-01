@@ -1153,7 +1153,11 @@ bool HomieInternals::BootNormal::__handleNodeProperty(char * topic, char * paylo
   homieNode = HomieNode::find(node);
 
   #ifdef DEBUG
+  if (homieNode) {
     Interface::get().getLogger() << F("Recived network message for ") << homieNode->getId() << endl;
+  } else {
+    Interface::get().getLogger() << F("Recived network message for unknown node: ") << node << endl;
+  }
   #endif // DEBUG
 
   if (!homieNode) {
